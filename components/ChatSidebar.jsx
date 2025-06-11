@@ -100,7 +100,7 @@ export default function ChatSidebar() {
   return (
     <div className={styles.sidebar}>
       <div className={`${styles.header} ${styles['sidebar-header']}`}>
-        <h2>Users</h2>
+        <h2 className={`${styles['sidebar-heading']}`}>Users</h2>
       </div>
       <div className={styles.userList}>
         {groupConv && (
@@ -119,6 +119,12 @@ export default function ChatSidebar() {
             </div>
           </div>
         )}
+
+
+        <div className={styles.separatorContainer}>
+              <div>All Users</div><div className={styles.separator}></div>
+        </div>
+
         {/* List all users for private chat */}
         {users.map((u) => (
           <div

@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
+import Image from 'next/image';
 import { logout } from '../store/slices/authSlice';
 import ChatSidebar from '../components/ChatSidebar';
 import ChatWindow from '../components/ChatWindow';
 import styles from '../styles/Chat.module.scss';
+import logo from '../assets/icons/chatOlogo.png'
 
 export default function Chat() {
   const router = useRouter();
@@ -30,7 +32,12 @@ export default function Chat() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1>Chat App</h1>
+        <Image 
+          src={logo}
+          alt="Logo"
+          width={120}
+          className={styles.logo}
+        />
         <button onClick={handleLogout} className={styles.logoutButton}>
           Logout
         </button>
