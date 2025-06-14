@@ -4,6 +4,16 @@ import { setConversations, setSelectedConversation } from '../store/slices/conve
 import { setUsers } from '../store/slices/userSlice';
 import styles from '../styles/ChatSidebar.module.scss';
 
+// Helper function to truncate text to 4 words
+const truncateToFourWords = (text) => {
+  if (!text) return '';
+  const words = text.split(' ');
+  if (words.length <= 6) {
+    return words.join(' ');
+  }
+  return words.slice(0, 6).join(' ') + '...';
+};
+
 export default function ChatSidebar() {
   const dispatch = useDispatch();
   const { conversations, selectedConversation } = useSelector((state) => state.conversations);
@@ -114,7 +124,7 @@ export default function ChatSidebar() {
               <h3>Group Chat</h3>
               <p>All users</p>
               {groupConv.lastMessage && (
-                <span className={styles.lastMessage}>{groupConv.lastMessage.text}</span>
+                <span className={styles.lastMessage}>{truncateToFourWords(groupConv.lastMessage.text)}</span>
               )}
             </div>
           </div>
@@ -146,7 +156,7 @@ export default function ChatSidebar() {
               {(() => {
                 const conv = findPrivateConversation(u.id);
                 return conv && conv.lastMessage ? (
-                  <span className={styles.lastMessage}>{conv.lastMessage.text}</span>
+                  <span className={styles.lastMessage}>{truncateToFourWords(conv.lastMessage.text)}</span>
                 ) : null;
               })()}
             </div>

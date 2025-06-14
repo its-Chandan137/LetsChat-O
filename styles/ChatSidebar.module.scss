@@ -74,6 +74,20 @@
     font-size: 0.9rem;
     color: #666;
   }
+
+  span{
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 400;
+    font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    max-width: 100%;
+    word-break: break-word;
+  }
 }
 
 .sidebar-heading {
