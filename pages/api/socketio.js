@@ -8,8 +8,8 @@ const ioHandler = (req, res) => {
 
   // Set CORS headers for preflight requests
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Credentials', '*');
-    res.setHeader('Access-Control-Allow-Origin', '*'); // Or specify your domain
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Origin', 'https://chat-o-one.vercel.app'); // Use your domain here
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
     res.setHeader(
       'Access-Control-Allow-Headers',
@@ -22,7 +22,7 @@ const ioHandler = (req, res) => {
   const io = new Server(res.socket.server, {
     path: '/api/socketio',
     cors: {
-      origin: '*', // Or specify your domain
+      origin: 'https://chat-o-one.vercel.app', // Use your domain here
       methods: ['GET', 'POST'],
       credentials: true,
     },

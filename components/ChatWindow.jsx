@@ -23,13 +23,13 @@ export default function ChatWindow() {
     const isProd = process.env.NODE_ENV === 'production';
 
     socket = io(
-      (process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001'),
+      (process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001') + (isProd ? '/api/socketio' : ''),
       {
         query: {
           userId: user.id,
           conversationIds,
         },
-        path: isProd ? '/api/socketio' : '/socket.io', // Use /socket.io locally, /api/socketio on Vercel
+        path: isProd ? '/api/socketio' : '/socket.io', // No trailing slash!
       }
     );
     // Listen for new messages
