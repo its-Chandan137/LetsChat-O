@@ -52,3 +52,27 @@ a {
     text-decoration: underline;
   }
 } 
+
+.primary-button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  
+}
+
+.secondary-button {
+  background-color: white;
+  color: var(--primary-color);
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid var(--primary-color);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}

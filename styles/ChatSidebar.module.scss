@@ -74,4 +74,44 @@
     font-size: 0.9rem;
     color: #666;
   }
+
+  span{
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 400;
+    font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    max-width: 100%;
+    word-break: break-word;
+  }
+}
+
+.sidebar-heading {
+  font-style: italic;
+  font-weight: 700 !important;
+}
+
+.separatorContainer {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  margin: 1rem 0;
+  gap: 1rem;
+
+  div:first-child {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+}
+
+.separator {
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 0;
 } 
