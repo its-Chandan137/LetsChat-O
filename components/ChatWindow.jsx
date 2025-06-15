@@ -22,16 +22,19 @@ export default function ChatWindow() {
     const conversationIds = conversations.map(c => c._id).join(',');
     const isProd = process.env.NODE_ENV === 'production';
 
-    socket = io(
-      (process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001') + (isProd ? '/api/socketio' : ''),
-      {
-        query: {
-          userId: user.id,
-          conversationIds,
-        },
-        path: isProd ? '/api/socketio' : '/socket.io', // No trailing slash!
-      }
-    );
+    let baseUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001';
+    if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
+
+    const socketUrl = isProd ? `${baseUrl}/api/socketio/` : baseUrl;
+    const socketPath = isProd ? '/api/socketio/' : '/socket.io';
+
+    socket = io(socketUrl, {
+      query: {
+        userId: user.id,
+        conversationIds,    
+      },
+      path: socketPath,
+    });
     // Listen for new messages
     socket.on('message', ({ conversationId, message }) => {
       // Only add message if it's for the selected conversation
