@@ -20,12 +20,16 @@ export default function ChatWindow() {
     if (!user || !conversations.length) return;
     if (socket) socket.disconnect();
     const conversationIds = conversations.map(c => c._id).join(',');
-    socket = io(process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001', {
-      query: {
-        userId: user.id,
-        conversationIds,
-      },
-    });
+    socket = io(
+      (process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001') + '/api/socketio',
+      {
+        query: {
+          userId: user.id,
+          conversationIds,
+        },
+        path: '/api/socketio', // This is important for Vercel!
+      }
+    );
     // Listen for new messages
     socket.on('message', ({ conversationId, message }) => {
       // Only add message if it's for the selected conversation
