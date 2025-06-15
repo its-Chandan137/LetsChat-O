@@ -23,13 +23,13 @@ export default function ChatWindow() {
     const isProd = process.env.NODE_ENV === 'production';
 
     socket = io(
-      (process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001') + (isProd ? '/api/socketio' : ''),
+      (process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001'),
       {
         query: {
           userId: user.id,
           conversationIds,
         },
-        path: isProd ? '/api/socketio' : '/socket.io', // <--- THIS IS CRITICAL
+        path: isProd ? '/api/socketio' : '/socket.io', // Use /socket.io locally, /api/socketio on Vercel
       }
     );
     // Listen for new messages
@@ -112,16 +112,16 @@ export default function ChatWindow() {
           <div
             key={message._id}
             className={`${styles.message} ${
-              message.sender._id === user.id ? styles.ownMessage : ''
+              message?.sender?._id === user.id ? styles.ownMessage : ''
             }`}
           >
             <div className={styles.messageHeader}>
-              <span className={styles.sender}>{message.sender.name}</span>
+              <span className={styles.sender}>{message?.sender?.name}</span>
               <span className={styles.time}>
-                {new Date(message.createdAt).toLocaleTimeString()}
+                {new Date(message?.createdAt).toLocaleTimeString()}
               </span>
             </div>
-            <div className={styles.content}>{message.content}</div>
+            <div className={styles.content}>{message?.content}</div>
           </div>
         ))}
         <div ref={messagesEndRef} />
