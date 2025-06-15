@@ -20,7 +20,7 @@ const ioHandler = (req, res) => {
   }
 
   const io = new Server(res.socket.server, {
-    path: '/api/socketio',
+    path: '/api/socketio/',
     cors: {
       origin: 'https://chat-o-one.vercel.app', // Use your domain here
       methods: ['GET', 'POST'],
