@@ -20,14 +20,16 @@ export default function ChatWindow() {
     if (!user || !conversations.length) return;
     if (socket) socket.disconnect();
     const conversationIds = conversations.map(c => c._id).join(',');
+    const isProd = process.env.NODE_ENV === 'production';
+
     socket = io(
-      (process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001') + '/api/socketio',
+      (process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001') + (isProd ? '/api/socketio' : ''),
       {
         query: {
           userId: user.id,
           conversationIds,
         },
-        path: '/api/socketio', // This is important for Vercel!
+        path: isProd ? '/api/socketio' : '/socket.io', // <--- THIS IS CRITICAL
       }
     );
     // Listen for new messages
