@@ -20,20 +20,23 @@ export default function ChatWindow() {
     if (!user || !conversations.length) return;
     if (socket) socket.disconnect();
     const conversationIds = conversations.map(c => c._id).join(',');
-    const isProd = process.env.NODE_ENV === 'production';
-
     let baseUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001';
+    // Remove trailing slash if present
     if (baseUrl.endsWith('/')) baseUrl = baseUrl.slice(0, -1);
-
-    const socketUrl = isProd ? `${baseUrl}/api/socketio/` : baseUrl;
-    const socketPath = isProd ? '/api/socketio/' : '/socket.io';
-
+    
+    const isProd = process.env.NODE_ENV === 'production';
+    const socketUrl = isProd ? `${baseUrl}/api/socketio` : baseUrl;
+    const socketPath = isProd ? '/api/socketio' : '/socket.io';
+    
+    console.log('Socket URL:', socketUrl); // Should end with /api/socketio (no slash after)
+    console.log('Socket Path:', socketPath);
+    
     socket = io(socketUrl, {
       query: {
         userId: user.id,
-        conversationIds,    
+        conversationIds,
       },
-      path: socketPath,
+      path: socketPath, // No trailing slash!
     });
     // Listen for new messages
     socket.on('message', ({ conversationId, message }) => {
