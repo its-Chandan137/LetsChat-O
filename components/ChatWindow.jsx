@@ -26,7 +26,7 @@ export default function ChatWindow() {
     
     const isProd = process.env.NODE_ENV === 'production';
     const socketUrl = isProd ? `${baseUrl}/api/socketio` : baseUrl;
-    const socketPath = isProd ? '/api/socketio' : '/socket.io';
+    const socketPath = isProd ? '/api/socketio8989' : '/socket.io';
     
     console.log('Socket URL:', socketUrl); // Should end with /api/socketio (no slash after)
     console.log('Socket Path:', socketPath);
